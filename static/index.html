@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交大備取查詢</title>
+</head>
+
+<body>
+  <button onclick="send()">點我寄信！</button>
+
+  <script>
+    function send() {
+      fetch('/api/send')
+    }
+  </script>
+</body>
+
+
+</html>

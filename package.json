@@ -1,0 +1,27 @@
+{
+  "name": "nctu_enroll_notify",
+  "version": "1.0.0",
+  "description": "懶得每次都去算備取到幾，乾脆做一個爬蟲， 算一算以後用mailgun寄給自己",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fatzchang/nctu_enroll_notify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fatzchang/nctu_enroll_notify/issues"
+  },
+  "homepage": "https://github.com/fatzchang/nctu_enroll_notify#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "request": "^2.88.2"
+  }
+}
