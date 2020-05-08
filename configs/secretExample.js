@@ -1,10 +1,9 @@
-// secret example, change its name to secret.js and move it into ./secret
 exports.mailgunKey = '<mailgun_api_key>';
 
 exports.params = {
-  from: '<sender_name> <sender_email>',
-  to: '<receiver_exmail>',
-  subject: '<subject>',
+  from: '<寄件者名稱> <寄件者信箱>',
+  to: '<收件者信箱>',
+  subject: '<主旨>',
 }
 
-exports.examCode = '<exam_code>';
+exports.examCode = '<准考證號碼>';
