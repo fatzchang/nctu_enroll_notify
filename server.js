@@ -19,7 +19,7 @@ app.get('/api/send', function (req, res) {
                 res.json({ status: 200 });
             })
             .catch(err => {
-                res.json(err);
+                res.json({ status: 500 });
             })
     });
 });
