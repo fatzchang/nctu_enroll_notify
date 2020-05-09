@@ -5,14 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>交大備取查詢</title>
+
+  <style>
+    .wrapper {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button {
+      background-color: #ff4c7e;
+      padding: 15px 30px;
+      border-radius: 50px;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+    }
+  </style>
 </head>
 
 <body>
-  <button onclick="send()">點我寄信！</button>
+  <div class="wrapper">
+    <button class="button" onclick="send()">點我寄信！</button>
+  </div>
 
   <script>
     function send() {
-      fetch('/api/send')
+      fetch('/api/send').then(res => {
+        if (res.status === 200) {
+          alert('成功寄出！');
+        } else {
+          alert('寄送失敗！');
+        }
+      });
     }
   </script>
 </body>
