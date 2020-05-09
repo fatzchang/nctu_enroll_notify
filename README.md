@@ -4,6 +4,9 @@
 
 ## 用法：
 辦一個mailgun帳號，設定好域名
+
 填入configs資料夾底下的secretExample.js
+
 將檔名改成secretExample.js檔名改成secret.js
+
 config底下新建一個secret資料夾，把secret.js放進去
