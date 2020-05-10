@@ -1,0 +1,17 @@
+@import '../../sass//main.scss';
+
+.button {
+  padding: 10px 30px;
+  background-color: $pink;
+  color: #fff;
+  appearance: none;
+  border: 2px solid $pink;
+  border-radius: 50px;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+
+  &:active {
+    background-color: darken($color: $pink, $amount: 5);
+  }
+}

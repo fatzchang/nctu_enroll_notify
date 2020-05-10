@@ -1,0 +1,8 @@
+@import './main.scss';
+
+.searchBar {
+  height: $searchBar-height;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
