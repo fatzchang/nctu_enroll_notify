@@ -1,15 +1,9 @@
 import React from 'react';
 import classes from './Table.module.scss';
+import { useSelector } from 'react-redux';
 
 const Table = () => {
-  fetch('/api/get', {
-    method: 'POST',
-    body: JSON.stringify({ examCode: '1101322' }),
-    headers: {
-      'content-type': 'application/json'
-    },
-  }).then(res => { console.log(res) });
-
+  const data = useSelector(state => state.selectedData);
 
   return (
     <table className={classes.table}>
@@ -23,27 +17,15 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        <tr className={classes.tr}>
-          <td className={classes.td}>1</td>
-          <td className={classes.td}>1101352</td>
-          <td className={classes.td}>正取</td>
-          <td className={classes.td}>一般生</td>
-          <td className={classes.td}>報到</td>
-        </tr>
-        <tr className={classes.tr}>
-          <td className={classes.td}>1</td>
-          <td className={classes.td}>1101352</td>
-          <td className={classes.td}>正取</td>
-          <td className={classes.td}>一般生</td>
-          <td className={classes.td}>報到</td>
-        </tr>
-        <tr className={classes.tr}>
-          <td className={classes.td}>1</td>
-          <td className={classes.td}>1101352</td>
-          <td className={classes.td}>正取</td>
-          <td className={classes.td}>一般生</td>
-          <td className={classes.td}>報到</td>
-        </tr>
+        {data.map((item, index) => (
+          <tr className={classes.tr}>
+            <td className={classes.td}>{index + 1}</td>
+            <td className={classes.td}>{item.examCode}</td>
+            <td className={classes.td}>正取</td>
+            <td className={classes.td}>一般生</td>
+            <td className={classes.td}>報到</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );

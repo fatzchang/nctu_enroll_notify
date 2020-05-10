@@ -1,13 +1,15 @@
 import React from 'react';
 import classes from './SearchInput.module.scss';
 
-const SearchInput = () => {
+const SearchInput = ({ placeholder, value, onChange }) => {
   return (
     <input
       type='tel'
       className={classes.searchInput}
       type="text"
-      placeholder='請輸入准考證號碼'
+      value={value}
+      placeholder={placeholder}
+      onChange={onChange}
       maxLength={7} />
   );
 }
