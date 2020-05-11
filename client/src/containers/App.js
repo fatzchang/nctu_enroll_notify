@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import SearchBar from './SearchBar';
 import Table from '../components/Table/Table';
+import Loader from '../components/Loader/Loader';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <main className={classes.main}>
           <Table />
         </main>
+        <Loader />
       </div>
     </Provider>
   );
