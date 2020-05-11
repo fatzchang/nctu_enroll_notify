@@ -1,7 +1,10 @@
+@import '../../sass/main.scss';
+
 .table {
   width: 100%;
   color: #444;
   font-size: 14px;
+  font-weight: bold;
 }
 
 .tr {
@@ -10,13 +13,36 @@
 
 .td {
   padding: 10px 0;
+
+  // &:first-child {
+  //   text-align: left;
+  // }
 }
 
 .th {
   padding-bottom: 20px;
+
+  // &:first-child {
+  //   text-align: left;
+  // }
 }
 
 .bb {
 
   border-bottom: 1px solid #000;
+}
+
+
+.signed {
+  color: #0187C2
+}
+
+.abandon,
+.cancelled {
+  color: #C2B1AE;
+  text-decoration: line-through;
+}
+
+.me {
+  color: $pink;
 }

@@ -1,12 +1,6 @@
 const initialState = {
-  data: {
-    '113': []
-  },
-  selectedData: [{
-    examCode: '1101352',
-  }, {
-    examCode: '1101357',
-  }],
+  data: {},
+  selectedData: [],
 }
 
 export default function reducer(state = initialState, action) {

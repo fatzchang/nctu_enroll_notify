@@ -17,15 +17,35 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
-          <tr className={classes.tr}>
-            <td className={classes.td}>{index + 1}</td>
-            <td className={classes.td}>{item.examCode}</td>
-            <td className={classes.td}>正取</td>
-            <td className={classes.td}>一般生</td>
-            <td className={classes.td}>報到</td>
-          </tr>
-        ))}
+        {data.map((item, index) => {
+          let theme = '';
+          switch (item.signed) {
+            case '已報到!':
+              theme = classes['signed'];
+              break
+            case '放棄':
+              theme = classes['abandon'];
+              break;
+            case '自動取消':
+              theme = classes['cancelled'];
+              break;
+            default:
+          }
+
+          if (item.examCode === '1101352') {
+            theme = classes['me']
+          }
+
+          return (
+            <tr className={[classes.tr, theme].join(' ')} key={item.id}>
+              <td className={classes.td}>{index + 1}</td>
+              <td className={classes.td}>{item.examCode}</td>
+              <td className={classes.td}>{item.admit}</td>
+              <td className={classes.td}>{item.type}</td>
+              <td className={classes.td}>{item.signed}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

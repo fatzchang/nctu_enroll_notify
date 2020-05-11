@@ -38,11 +38,12 @@ export function submitSearch(departmentNumber) {
     if (shouldFetchData(getState(), departmentNumber)) {
       // get department code
       const target = departments.find(item => item.number === departmentNumber)
-
-      fetchData(target.code).then(res => {
-        dispatch(updateData(departmentNumber, res.data.data));
-        dispatch(selectDepartment(departmentNumber));
-      })
+      if (target) {
+        fetchData(target.code).then(res => {
+          dispatch(updateData(departmentNumber, res.data.data));
+          dispatch(selectDepartment(departmentNumber));
+        })
+      }
     } else {
       dispatch(selectDepartment(departmentNumber));
     }

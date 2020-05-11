@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import classes from '../sass/SearchBar.module.scss';
 import { useDispatch } from 'react-redux';
 import Button from '../components/Button/Button';
@@ -6,12 +6,28 @@ import SearchInput from '../components/SearchInput/SearchInput';
 import Dropdown from '../components/Dropdown/Dropdown';
 import { submitSearch } from '../store/actionCreator';
 
+// context
+export const searchBarContext = createContext();
+const SearchBarContextProvider = ({ children }) => {
+  let [examCode, setExamCode] = useState('');
+  let [departmentNumber, setDepartmentNumber] = useState('');
+
+  return (
+    <searchBarContext.Provider value={{ examCode, departmentNumber, setExamCode, setDepartmentNumber }}>
+      {children}
+    </searchBarContext.Provider>
+  )
+}
+
+
+// component
 const SearchBar = () => {
+  const { departmentNumber } = useContext(searchBarContext);
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(submitSearch('111'));
+    dispatch(submitSearch(departmentNumber));
   }
 
   return (
@@ -23,4 +39,8 @@ const SearchBar = () => {
   );
 }
 
-export default SearchBar;
+export default () => (
+  <SearchBarContextProvider>
+    <SearchBar />
+  </SearchBarContextProvider>
+)
