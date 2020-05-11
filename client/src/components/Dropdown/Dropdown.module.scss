@@ -1,0 +1,27 @@
+@import '../../sass/main.scss';
+
+.dropdown {
+  position: relative;
+}
+
+.content {
+  position: absolute;
+  top: 40px;
+  background-color: #fff;
+  width: 300px;
+  border: 2px solid #444;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.text {
+  margin: 0;
+  padding: 10px 5px;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $pink;
+    color: #fff
+  }
+}

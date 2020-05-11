@@ -5,14 +5,17 @@ var resolve = require('./modules/resolve');
 var express = require('express');
 var sender = require('./modules/mailgun');
 var secret = require('./configs/secret/secret');
+var bodyParser = require('body-parser')
 
 var app = express();
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/api/send', function (req, res) {
-    getContent(function (contentErr, contentRes, body) {
+    getContent('60781cbf-44ce-4bfa-9490-a7eabfca7abb', function (contentErr, contentRes, body) {
         var $ = cheerio.load(body);
-        var result = resolve($, secret.examCode); // use the exam number
+        var result = resolve.byCode($, secret.examCode); // use the exam number
 
         sender('fatz.tw')(secret.mailgunKey)(result)
             .then(mailgunRes => {
@@ -23,6 +26,32 @@ app.get('/api/send', function (req, res) {
             })
     });
 });
+
+
+app.get('/api/get', function (req, res) {
+    // body: department, examCode
+    const departmentCode = req.query.departmentCode
+
+    getContent(departmentCode, function (contentErr, contentRes, body) {
+
+        var $ = cheerio.load(body);
+        var result = resolve.all($);
+        res.json({
+            success: true,
+            data: result
+        })
+    })
+});
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'static/index.html'));
+});
+
+app.get('/v2', function (req, res) {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
+
 
 
 app.listen(3002, function () {

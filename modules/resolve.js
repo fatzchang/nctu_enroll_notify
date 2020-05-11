@@ -1,4 +1,4 @@
-function resolve($, mycode) {
+exports.byCode = function ($, mycode) {
   const table_tr = $("#dgUserList tr");
   let position = 0;
   let distance = 0; // 離我還有幾個
@@ -56,4 +56,30 @@ function resolve($, mycode) {
   }
 }
 
-module.exports = resolve;
+
+
+exports.all = function ($) {
+  let result = [];
+  const table_tr = $("#dgUserList tr");
+  for (let i = 0; i < table_tr.length - 1; i++) {
+    const examCode = $('#dgUserList__lblEXAMNO_' + i).text();
+    const admit = $('#dgUserList__lblGetType_' + i).text();
+    const type = $('#dgUserList__lblType_' + i).text();
+    let signed = $('#dgUserList__lblAlreadySignIn_' + i).text();
+
+    if (signed === '已在較高志願報到, 此志願已自動取消.') {
+      signed = '自動取消'
+    }
+
+    result.push({
+      id: i + 1,
+      examCode,
+      admit,
+      type,
+      signed
+    })
+  }
+
+
+  return result
+}
