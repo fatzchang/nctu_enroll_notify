@@ -3,7 +3,7 @@ import classes from './Button.module.scss';
 
 const Button = ({ text }) => {
   return (
-    <button className={classes.button}>{text}</button>
+    <button type='submit' className={classes.button}>{text}</button>
   );
 }
 

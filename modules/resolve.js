@@ -62,10 +62,10 @@ exports.all = function ($) {
   let result = [];
   const table_tr = $("#dgUserList tr");
   for (let i = 0; i < table_tr.length - 1; i++) {
-    const examCode = $('#dgUserList__lblEXAMNO_' + i).text();
-    const admit = $('#dgUserList__lblGetType_' + i).text();
-    const type = $('#dgUserList__lblType_' + i).text();
-    let signed = $('#dgUserList__lblAlreadySignIn_' + i).text();
+    const examCode = $('#dgUserList__lblEXAMNO_' + i).text().trim();
+    const admit = $('#dgUserList__lblGetType_' + i).text().trim();
+    const type = $('#dgUserList__lblType_' + i).text().trim();
+    let signed = $('#dgUserList__lblAlreadySignIn_' + i).text().trim();
 
     if (signed === '已在較高志願報到, 此志願已自動取消.') {
       signed = '自動取消'
