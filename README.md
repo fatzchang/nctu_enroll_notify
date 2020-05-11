@@ -9,7 +9,7 @@
 
 [請進入](https://exam.fatz.tw/v2)
 
-## v1:
+## v.1
 算一算以後用mailgun寄給自己
 
 ### 使用方法：
@@ -22,11 +22,11 @@
 config底下新建一個secret資料夾，把secret.js放進去
 
 
-## v2:
+## v.2
 新頁面，可以選擇系所，使用上跟交大網頁大同小異，但是多了順序
 
 ### 使用方法
-``` javascript
+```
 git clone git@github.com:fatzchang/nctu_enroll_notify.git
 
 cd nctu_enroll_notify/client

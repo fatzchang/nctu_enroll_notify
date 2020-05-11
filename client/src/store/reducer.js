@@ -1,5 +1,6 @@
 const initialState = {
   data: {},
+  isLoading: false,
   examCode: '',
   selectedData: {
     name: '',
@@ -34,6 +35,16 @@ export default function reducer(state = initialState, action) {
         examCode: action.payload.examCode
       }
 
+    case 'LOADING':
+      return {
+        ...state,
+        isLoading: true
+      }
+    case 'LOADED':
+      return {
+        ...state,
+        isLoading: false
+      }
     default:
       return state;
   }

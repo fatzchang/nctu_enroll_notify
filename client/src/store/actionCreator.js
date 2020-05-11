@@ -44,21 +44,45 @@ function updateExamCode(examCode) {
   }
 }
 
+function loading() {
+  return {
+    type: 'LOADING',
+  }
+}
+
+function loaded() {
+  return {
+    type: 'LOADED',
+  }
+}
+
 export function submitSearch(departmentNumber, examCode) {
   return function (dispatch, getState) {
+    const state = getState();
+    if (state.isLoading) {
+      return;
+    }
+
+    if (!examCode || examCode.length !== 7) {
+      return;
+    }
+
     dispatch(updateExamCode(examCode));
 
-    if (shouldFetchData(getState(), departmentNumber)) {
-      // get department code
-      const target = departments.find(item => item.number === departmentNumber)
-      if (target) {
+    const target = departments.find(item => item.number === departmentNumber)
+    if (target) {
+      dispatch(loading());
+
+      if (shouldFetchData(state, departmentNumber)) {
         fetchData(target.code, examCode).then(res => {
           dispatch(updateData(departmentNumber, res.data.data));
           dispatch(selectDepartment(departmentNumber, target.name));
-        })
+          dispatch(loaded());
+        });
+      } else {
+        dispatch(selectDepartment(departmentNumber, target.name));
+        dispatch(loaded());
       }
-    } else {
-      dispatch(selectDepartment(departmentNumber));
     }
   }
 }
