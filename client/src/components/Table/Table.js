@@ -66,7 +66,8 @@ const Table = () => {
     );
   })
 
-  const waiting = order - firstWaiting - abandon;
+  let waiting = order - firstWaiting - abandon;
+  waiting = waiting >= 0 ? waiting : 0
 
   return selected.data.length ? (
     <div className={classes.tableWrapper}>
@@ -75,7 +76,7 @@ const Table = () => {
         order={order}
         firstWaiting={firstWaiting}
         abandon={abandon}
-        waiting={waiting >= 0 ? waiting : 0} />
+        waiting={waiting} />
       <table className={classes.table}>
         <thead>
           <tr className={classes.tr}>

@@ -63,9 +63,9 @@ export function submitSearch(departmentNumber, examCode) {
       return;
     }
 
-    if (!examCode || examCode.length !== 7) {
-      return;
-    }
+    // if (!examCode || examCode.length !== 7) {
+    //   return;
+    // }
 
     dispatch(updateExamCode(examCode));
 
