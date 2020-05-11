@@ -6,7 +6,6 @@ const SearchInput = ({ placeholder, value, onChange }) => {
     <input
       type='tel'
       className={classes.searchInput}
-      type="text"
       value={value}
       placeholder={placeholder}
       onChange={onChange}
