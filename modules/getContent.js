@@ -3,7 +3,6 @@ var cheerio = require('cheerio');
 
 // get page html
 function getContent(departmentCode, callback) {
-  console.log(departmentCode);
   var formBody = {
     ddlExamList: departmentCode,
     ddlExamType: 'a782c851-8dbc-41ed-97eb-b7c16e0de9cc',

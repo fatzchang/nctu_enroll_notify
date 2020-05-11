@@ -22,18 +22,18 @@ const SearchBarContextProvider = ({ children }) => {
 
 // component
 const SearchBar = () => {
-  const { departmentNumber } = useContext(searchBarContext);
+  const { departmentNumber, examCode, setExamCode } = useContext(searchBarContext);
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(submitSearch(departmentNumber));
+    dispatch(submitSearch(departmentNumber, examCode));
   }
 
   return (
     <form className={classes.searchBar} onSubmit={submitHandler}>
       <Dropdown />
-      <SearchInput placeholder='准考證號碼' />
+      <SearchInput value={examCode} onChange={(e) => { setExamCode(e.target.value) }} placeholder='准考證號碼' />
       <Button text='查詢' />
     </form>
   );
