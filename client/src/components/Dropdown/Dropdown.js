@@ -9,6 +9,7 @@ const Dropdown = () => {
   const [extend, setExtend] = useState(false);
 
   const focusHandler = () => {
+    setDepartmentNumber('');
     setExtend(true)
   }
 

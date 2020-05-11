@@ -1,5 +1,8 @@
+@import './main.scss';
+
 .App {}
 
 .main {
-  padding: 20px;
+  padding: 0 20px;
+  min-height: calc(100vh - #{$searchBar-height});
 }

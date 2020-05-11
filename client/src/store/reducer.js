@@ -1,6 +1,10 @@
 const initialState = {
   data: {},
-  selectedData: [],
+  examCode: '',
+  selectedData: {
+    name: '',
+    data: []
+  },
 }
 
 export default function reducer(state = initialState, action) {
@@ -17,9 +21,17 @@ export default function reducer(state = initialState, action) {
     case 'SELECT_DEPARTMENT':
       return {
         ...state,
-        selectedData: [
-          ...state.data[action.payload.departmentNumber]
-        ]
+        selectedData: {
+          name: action.payload.departmentName,
+          data: [
+            ...state.data[action.payload.departmentNumber]
+          ]
+        }
+      }
+    case 'UPDATE_EXAM_CODE':
+      return {
+        ...state,
+        examCode: action.payload.examCode
       }
 
     default:

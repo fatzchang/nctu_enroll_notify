@@ -30,10 +30,9 @@ app.get('/api/send', function (req, res) {
 
 app.get('/api/get', function (req, res) {
     // body: department, examCode
-    const departmentCode = req.query.departmentCode
+    const { departmentCode, examCode } = req.query;
 
     getContent(departmentCode, function (contentErr, contentRes, body) {
-
         var $ = cheerio.load(body);
         var result = resolve.all($);
         res.json({
