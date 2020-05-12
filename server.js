@@ -5,7 +5,8 @@ var resolve = require('./modules/resolve');
 var express = require('express');
 var sender = require('./modules/mailgun');
 var secret = require('./configs/secret/secret');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var statistic = require('./modules/statistic');
 
 var app = express();
 app.use(bodyParser.json());
@@ -30,16 +31,23 @@ app.get('/api/send', function (req, res) {
 
 app.get('/api/get', function (req, res) {
     // body: department, examCode
-    const { departmentCode, examCode } = req.query;
+    const { departmentCode, examCode, memoized } = req.query;
 
-    getContent(departmentCode, function (contentErr, contentRes, body) {
-        var $ = cheerio.load(body);
-        var result = resolve.all($);
-        res.json({
-            success: true,
-            data: result
+    // 有傳准考證，紀錄
+    if (examCode && examCode.length === 7) {
+        statistic(examCode);
+    }
+
+    // 前端沒有memoize
+    if (memoized === 'false') {
+        getContent(departmentCode, function (contentErr, contentRes, body) {
+            var $ = cheerio.load(body);
+            var result = resolve.all($);
+            res.json({ data: result })
         })
-    })
+    } else {
+        res.json({ data: [] })
+    }
 });
 
 app.get('/', function (req, res) {
@@ -49,9 +57,6 @@ app.get('/', function (req, res) {
 app.get('/v2', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
-
-
-
 
 app.listen(3002, function () {
     console.log('app listening on port 3002!');

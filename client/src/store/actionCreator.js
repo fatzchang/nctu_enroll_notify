@@ -2,15 +2,16 @@ import axios from 'axios';
 import departments from '../departments';
 
 
-function shouldFetchData(state, departmentNumber) {
-  return !state.data[departmentNumber]; // 空的就回傳true
+function isMemoized(state, departmentNumber) {
+  return !!state.data[departmentNumber]; // 若已memoized回傳true
 }
 
-function fetchData(departmentCode, examCode) {
+function fetchData(departmentCode, examCode, memoized) {
   return axios('/api/get', {
     params: {
       departmentCode,
-      examCode
+      examCode,
+      memoized
     },
   });
 }
@@ -72,17 +73,16 @@ export function submitSearch(departmentNumber, examCode) {
     const target = departments.find(item => item.number === departmentNumber)
     if (target) {
       dispatch(loading());
-
-      if (shouldFetchData(state, departmentNumber)) {
-        fetchData(target.code, examCode).then(res => {
+      const memoized = isMemoized(state, departmentNumber);
+      fetchData(target.code, examCode, memoized).then(res => {
+        if (!memoized) {
           dispatch(updateData(departmentNumber, res.data.data));
-          dispatch(selectDepartment(departmentNumber, target.name));
-          dispatch(loaded());
-        });
-      } else {
+        }
+
         dispatch(selectDepartment(departmentNumber, target.name));
         dispatch(loaded());
-      }
+      });
+
     }
   }
 }
