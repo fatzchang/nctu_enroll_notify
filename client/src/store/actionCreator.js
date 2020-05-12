@@ -64,25 +64,29 @@ export function submitSearch(departmentNumber, examCode) {
       return;
     }
 
-    // if (!examCode || examCode.length !== 7) {
-    //   return;
-    // }
+    const target = departments.find(item => item.number === departmentNumber)
+    if (!target) {
+      return;
+    }
 
+    // 如果同樣的資料再傳一次，直接reject
+    if (target.name === state.selectedData.name && examCode === state.examCode) {
+      return;
+    }
+
+    dispatch(loading());
+
+    // 更新examCode
     dispatch(updateExamCode(examCode));
 
-    const target = departments.find(item => item.number === departmentNumber)
-    if (target) {
-      dispatch(loading());
-      const memoized = isMemoized(state, departmentNumber);
-      fetchData(target.code, examCode, memoized).then(res => {
-        if (!memoized) {
-          dispatch(updateData(departmentNumber, res.data.data));
-        }
+    const memoized = isMemoized(state, departmentNumber);
+    fetchData(target.code, examCode, memoized).then(res => {
+      if (!memoized) {
+        dispatch(updateData(departmentNumber, res.data.data));
+      }
 
-        dispatch(selectDepartment(departmentNumber, target.name));
-        dispatch(loaded());
-      });
-
-    }
+      dispatch(selectDepartment(departmentNumber, target.name));
+      dispatch(loaded());
+    });
   }
 }
