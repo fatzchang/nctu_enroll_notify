@@ -1,0 +1,20 @@
+@import '../../sass/main.scss';
+
+.Bug {
+  position: fixed;
+  height: 35px;
+  width: 35px;
+  background-color: $pink;
+  border-radius: 50%;
+  right: 15px;
+  bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5);
+}
+
+.icon {
+  color: white;
+  font-size: 15px;
+}
