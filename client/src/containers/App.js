@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import SearchBar from './SearchBar';
 import Table from '../components/Table/Table';
 import Loader from '../components/Loader/Loader';
+import Bug from '../components/Bug/Bug';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <SearchBar />
         <main className={classes.main}>
           <Table />
+          <Bug />
         </main>
         <Loader />
       </div>
