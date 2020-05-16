@@ -5,7 +5,7 @@ import { faBug } from '@fortawesome/free-solid-svg-icons'
 
 const Bug = () => {
   return (
-    <a href="mailto:exam@fatz.tw" className={classes.Bug}>
+    <a href="mailto:exam@fatz.tw?subject=錯誤回報（交大備取查詢）" className={classes.Bug}>
       <FontAwesomeIcon icon={faBug} className={classes.icon} />
     </a>
   );
