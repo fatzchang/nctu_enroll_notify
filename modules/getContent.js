@@ -1,9 +1,9 @@
-var request = require('request');
-var cheerio = require('cheerio');
+const request = require('request');
+const cheerio = require('cheerio');
 
 // get page html
 function getContent(departmentCode, callback) {
-  var formBody = {
+  const formBody = {
     ddlExamList: departmentCode,
     ddlExamType: 'a782c851-8dbc-41ed-97eb-b7c16e0de9cc',
     __EVENTTARGET: 'ddlExamList',
@@ -16,7 +16,7 @@ function getContent(departmentCode, callback) {
 
   request('https://enroll.nctu.edu.tw/', (err, res, body) => {
     // 不帶參數取得原始頁面
-    var $ = cheerio.load(body);
+    const $ = cheerio.load(body);
     formBody.__VIEWSTATE = $('#__VIEWSTATE').val();
     formBody.__EVENTVALIDATION = $("#__EVENTVALIDATION").val();
     formBody.__VIEWSTATEGENERATOR = $("#__VIEWSTATEGENERATOR").val();

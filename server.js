@@ -1,22 +1,22 @@
-var path = require('path');
-var cheerio = require('cheerio');
-var getContent = require('./modules/getContent');
-var resolve = require('./modules/resolve');
-var express = require('express');
-var sender = require('./modules/mailgun');
-var secret = require('./configs/secret/secret');
-var bodyParser = require('body-parser');
-var statistic = require('./modules/statistic');
+const path = require('path');
+const cheerio = require('cheerio');
+const getContent = require('./modules/getContent');
+const resolve = require('./modules/resolve');
+const express = require('express');
+const sender = require('./modules/mailgun');
+const secret = require('./configs/secret/secret');
+const bodyParser = require('body-parser');
+const statistic = require('./modules/statistic');
 
-var app = express();
+const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/api/send', function (req, res) {
     getContent('60781cbf-44ce-4bfa-9490-a7eabfca7abb', function (contentErr, contentRes, body) {
-        var $ = cheerio.load(body);
-        var result = resolve.byCode($, secret.examCode); // use the exam number
+        const $ = cheerio.load(body);
+        const result = resolve.byCode($, secret.examCode); // use the exam number
 
         sender('fatz.tw')(secret.mailgunKey)(result)
             .then(mailgunRes => {
@@ -41,8 +41,8 @@ app.get('/api/get', function (req, res) {
     // 前端沒有memoize
     if (memoized === 'false') {
         getContent(departmentCode, function (contentErr, contentRes, body) {
-            var $ = cheerio.load(body);
-            var result = resolve.all($);
+            const $ = cheerio.load(body);
+            const result = resolve.all($);
             res.json({ data: result })
         })
     } else {

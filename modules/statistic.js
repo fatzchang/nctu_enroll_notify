@@ -1,7 +1,8 @@
-var path = require('path');
+const path = require('path');
+const moment = require('moment');
 // initialize firebase
 const admin = require('firebase-admin');
-let serviceAccount = require(path.resolve(__dirname, '../configs/secret/firestore.json'));
+const serviceAccount = require(path.resolve(__dirname, '../configs/secret/firestore.json'));
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -18,7 +19,8 @@ module.exports = async function statistic(examCode) {
     let data = await docRef.get();
     if (data && data.exists) {
       await data.ref.update({
-        totalSearch: admin.firestore.FieldValue.increment(1)
+        totalSearch: admin.firestore.FieldValue.increment(1),
+        lastSearch: moment().format('YYYY/MM/DD hh:mm:ss')
       });
     }
     else {
