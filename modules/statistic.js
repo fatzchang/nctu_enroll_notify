@@ -24,7 +24,10 @@ module.exports = async function statistic(examCode) {
       });
     }
     else {
-      await data.ref.set({ totalSearch: 1 }, { merge: true });
+      await data.ref.set({
+        totalSearch: 1,
+        lastSearch: moment().format('YYYY/MM/DD hh:mm:ss')
+      }, { merge: true });
     }
   } catch (err) {
     console.log(err);
