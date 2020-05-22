@@ -40,7 +40,7 @@ app.get('/api/get', function (req, res) {
 
     // 前端沒有memoize
     if (memoized === 'false') {
-        getContent(departmentCode, function (contentErr, contentRes, body) {
+        getContent(departmentCode, function (body) {
             const $ = cheerio.load(body);
             const result = resolve.all($);
             res.json({ data: result })

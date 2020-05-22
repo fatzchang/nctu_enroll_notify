@@ -1,34 +1,28 @@
-const request = require('request');
-const cheerio = require('cheerio');
+const axios = require('axios').default;
+const qs = require('qs');
+const formBody = require('../configs/formBody');
+const formReplace = require('../configs/formReplace');
 
 // get page html
-function getContent(departmentCode, callback) {
-  const formBody = {
-    ddlExamList: departmentCode,
-    ddlExamType: 'a782c851-8dbc-41ed-97eb-b7c16e0de9cc',
-    __EVENTTARGET: 'ddlExamList',
-    __EVENTARGUMENT: '',
-    __LASTFOCUS: '',
-    __VIEWSTATE: '',
-    __VIEWSTATEGENERATOR: '',
-    __EVENTVALIDATION: ''
+async function getContent(departmentCode, callback) {
+  const data = {
+    ...formBody
   }
+  data.ddlExamList = departmentCode;
+  if (departmentCode === 'b0478a30-f5ff-4fbd-9756-de91867dc649') {
+    data.__VIEWSTATE = formReplace.__VIEWSTATE;
+    data.__EVENTVALIDATION = formReplace.__EVENTVALIDATION;
+  }
+  console.log(data);
 
-  request('https://enroll.nctu.edu.tw/', (err, res, body) => {
-    // 不帶參數取得原始頁面
-    const $ = cheerio.load(body);
-    formBody.__VIEWSTATE = $('#__VIEWSTATE').val();
-    formBody.__EVENTVALIDATION = $("#__EVENTVALIDATION").val();
-    formBody.__VIEWSTATEGENERATOR = $("#__VIEWSTATEGENERATOR").val();
-
-    if (departmentCode === 'b0478a30-f5ff-4fbd-9756-de91867dc649') {
-      // 資甲二次fetch有問題
-      callback(err, res, body);
-      return;
+  axios.post('https://enroll.nctu.edu.tw', qs.stringify(data), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
     }
-
-    // 帶入參數取得指定頁面
-    request.post('https://enroll.nctu.edu.tw/', { form: formBody }, callback)
+  }).then(res => {
+    callback(res.data);
+  }).catch(err => {
+    console.log(err);
   });
 }
 
