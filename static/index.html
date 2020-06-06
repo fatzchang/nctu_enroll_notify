@@ -35,8 +35,10 @@
 
   <script>
     function send() {
-      fetch('/api/send').then(res => {
-        if (res.status === 200) {
+      const name = prompt('Who are you?');
+      fetch(`/api/send?name=${name}`).then(res => res.json()).then(data => {
+        console.log(data)
+        if (data.status === 200) {
           alert('成功寄出！');
         } else {
           alert('寄送失敗！');
