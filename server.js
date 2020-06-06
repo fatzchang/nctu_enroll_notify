@@ -14,6 +14,12 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/api/send', function (req, res) {
+    const { name } = req.query;
+    if (name !== 'Damla') {
+        res.json({ status: 500 });
+        return;
+    }
+
     getContent('60781cbf-44ce-4bfa-9490-a7eabfca7abb', function (body) {
         const $ = cheerio.load(body);
         const result = resolve.byCode($, secret.examCode); // use the exam number
