@@ -7,6 +7,7 @@ const sender = require('./modules/mailgun');
 const secret = require('./configs/secret/secret');
 const bodyParser = require('body-parser');
 const statistic = require('./modules/statistic');
+const getStats = require('./modules/getStats');
 
 const app = express();
 app.use(bodyParser.json());
@@ -63,6 +64,11 @@ app.get('/', function (req, res) {
 app.get('/v2', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
+
+app.get('/stat', async function (req, res) {
+    const stats = await getStats();
+    res.json(stats);
+})
 
 app.listen(3002, function () {
     console.log('app listening on port 3002!');
