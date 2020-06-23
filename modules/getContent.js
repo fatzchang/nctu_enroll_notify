@@ -13,7 +13,6 @@ async function getContent(departmentCode, callback) {
     data.__VIEWSTATE = formReplace.__VIEWSTATE;
     data.__EVENTVALIDATION = formReplace.__EVENTVALIDATION;
   }
-  console.log(data);
 
   axios.post('https://enroll.nctu.edu.tw', qs.stringify(data), {
     headers: {
